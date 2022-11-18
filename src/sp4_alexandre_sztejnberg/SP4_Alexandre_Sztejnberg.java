@@ -14,7 +14,12 @@ public class SP4_Alexandre_Sztejnberg {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Jeton J1=new Jeton("rouge");
+        System.out.println(J1);
+        Jeton J2=new Jeton("jaune");
+        System.out.println(J2);
+        Jeton J3=new Jeton("vert");
+        System.out.println(J3);
     }
     
 }
