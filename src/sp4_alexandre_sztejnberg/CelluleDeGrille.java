@@ -31,14 +31,15 @@ public class CelluleDeGrille {
         this.jetonCourant = jetonCourant;
     }
 
-    String lireCouleurDuJeton() {
+    public String lireCouleurDuJeton() {
         if (presenceJeton() == true) {
-
             return jetonCourant.toString();
         } else {
             return "vide";
         }
-
+    }
+    public void boolean placerTrouNoir(){
+         avoirTrouNoir=true;
     }
     
 }
