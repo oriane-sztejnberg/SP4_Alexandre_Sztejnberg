@@ -21,5 +21,4 @@ public class SP4_Alexandre_Sztejnberg {
         Jeton J3=new Jeton("vert");
         System.out.println(J3);
     }
-    
 }

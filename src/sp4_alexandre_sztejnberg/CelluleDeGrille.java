@@ -30,7 +30,10 @@ public class CelluleDeGrille {
     public void setJetonCourant(Jeton jetonCourant) {
         this.jetonCourant = jetonCourant;
     }
-
+    public Jeton affecterJeton (Jeton nomDuJeton){
+        return jetonCourant;
+     
+    }
     public String lireCouleurDuJeton() {
         if (presenceJeton() == true) {
             return jetonCourant.toString();
