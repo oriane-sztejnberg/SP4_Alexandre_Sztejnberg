@@ -10,7 +10,7 @@ package sp4_alexandre_sztejnberg;
  */
 public class CelluleDeGrille {
 
-    private String jetonCourant = null;
+    private Jeton jetonCourant = null;
     private boolean avoirTrouNoir = false;
     private boolean avoirDesintegrateur = false;
 
@@ -27,7 +27,7 @@ public class CelluleDeGrille {
      *
      * @param jetonCourant ajoute le jeton en parametre a la cellule
      */
-    public void setJetonCourant(String jetonCourant) {
+    public void setJetonCourant(Jeton jetonCourant) {
         this.jetonCourant = jetonCourant;
     }
 
@@ -38,8 +38,65 @@ public class CelluleDeGrille {
             return "vide";
         }
     }
-    public void boolean placerTrouNoir(){
-         avoirTrouNoir=true;
+    public void placerTrouNoir() {
+        avoirTrouNoir = true;
+    
+
+    }
+
+    public void supprimerTrouNoir() {
+        avoirTrouNoir = false;
+    }
+
+    public boolean presenceTrouNoir() {
+        if (avoirTrouNoir == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public Jeton recupererJeton(){
+        Jeton var;
+        var = jetonCourant;
+        jetonCourant=null;
+        return var;
+    }
+    public void supprimerJeton(){
+        jetonCourant= null;
+                
+    }
+    public boolean presenceDesintegrateur(){
+        if (avoirDesintegrateur==true){
+            return true;
+        }else{
+            return false;
+            
+        }
+    }
+    public void placerDesintegrateur(){
+        avoirDesintegrateur=true;
+        
     }
     
+   public void supprimerDesintegrateur(){
+       avoirDesintegrateur=false;
+   } 
+   public void activerTrouNoir(){
+       supprimerJeton();
+       supprimerTrouNoir();
+   }
+   public String tostring(){
+       if (presenceJeton()==true){
+           return jetonCourant.toString();
+       }else if (presenceTrouNoir()==true){
+           return "@";
+       }else if (presenceDesintegrateur()==true){
+           return "D";
+       }else{
+           return".";
+       }
+   }
 }
+
+
+
