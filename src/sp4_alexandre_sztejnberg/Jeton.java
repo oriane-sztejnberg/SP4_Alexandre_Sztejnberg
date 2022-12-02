@@ -11,13 +11,27 @@ package sp4_alexandre_sztejnberg;
 public class Jeton {
     private String couleur;
     
+    /**
+     * initialise l’attribut couleur du jeton avec la valeur passée en paramètre.
+     * @param Couleur
+     */
     public Jeton (String Couleur){    
        couleur=Couleur; 
     
     }
+
+    /**
+     *renvoie la couleur du jeton : « rouge » ou « jaune »
+     * @return
+     */
     public String lireCouleur(){
         return couleur;
     }
+
+    /**
+     *Retourne juste le caractère ‘R’ ou ‘J’ selon la couleur du jeton.
+     * @return
+     */
     @Override
     public String toString(){
         String c;
