@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package sp4_alexandre_sztejnberg;
+
 import java.util.ArrayList;
 
 /**
@@ -10,53 +11,74 @@ import java.util.ArrayList;
  * @author jason
  */
 public class Joueur {
-    private String nom;
+
+    String Nom;
     String couleur;
-    private ArrayList<Jeton> reserveJetons = new ArrayList();
-    private int nombreDesintegrateurs ;
-    
+    ArrayList<Jeton> reserveJetons = new ArrayList();
+    int nombreDesintegrateurs;
+    int nombrejetonsrestants;
+
     /**
-     * initialise le nom du joueur avec son paramètre, et initialise son nombre de désintégrateurs disponibles à 0
+     * initialise le nom du joueur avec son paramètre, et initialise son nombre
+     * de désintégrateurs disponibles à 0
+     *
      * @param nom
      */
-    public Joueur(String nom){
-        nom = nom ;
-        nombreDesintegrateurs = 0 ;
+    public Joueur(String nom) {
+        Nom = nom;
+        nombreDesintegrateurs = 0;
     }
-    public void affecterCouleur (String Couleur){
-        couleur=Couleur;
+
+    public void affecterCouleur(String Couleur) {
+        couleur = Couleur;
     }
-  
+
     /**
-     *ajoute le jeton passé en paramètre à la réserve de jetons
+     * ajoute le jeton passé en paramètre à la réserve de jetons
+     *
      * @param newJeton
      */
-    public void ajouterJeton (Jeton newJeton){
+    public void ajouterJeton(Jeton newJeton) {
         reserveJetons.add(newJeton);
-}
+        nombrejetonsrestants++;
+    }
 
     /**
-     *etire un jeton de la réserve de jetons et on renvoie une référence vers ce jeton
+     * retire un jeton de la réserve de jetons et on renvoie une référence vers
+     * ce jeton
+     *
      * @return
      */
-    public Jeton jouerJeton(){
+    public Jeton jouerJeton() {
         Jeton reference = reserveJetons.remove(0);
-        return reference ;
-    } 
-
-    /**
-     *incrémente le nombre de désintégrateurs du joueur.
-     */
-    public void obtenirDesintegrateur(){
-        nombreDesintegrateurs += 1 ;
+        return reference;
     }
 
     /**
-     *décrémente le nombre de désintégrateurs.
+     * incrémente le nombre de désintégrateurs du joueur.
      */
-    public void utiliserDesintegrateur(){
-        nombreDesintegrateurs -= 1 ;
+    public void obtenirDesintegrateur() {
+        nombreDesintegrateurs += 1;
+    }
+
+    /**
+     * décrémente le nombre de désintégrateurs.
+     */
+    public void utiliserDesintegrateur() {
+        nombreDesintegrateurs -= 1;
+    }
+
+    /**
+     *permet de savoir s'il reste ou non des jetons au joueur
+     * @return
+     */
+    public Jeton poserjeton() {
+        if (nombrejetonsrestants > 0) {
+            nombrejetonsrestants--;
+            Jeton jeton = reserveJetons.get(0);
+            reserveJetons.remove(0);
+            return jeton;
+        }
+        return null;
     }
 }
-
-

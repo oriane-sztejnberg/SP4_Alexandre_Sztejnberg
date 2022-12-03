@@ -10,7 +10,9 @@ package sp4_alexandre_sztejnberg;
  */
 public class Plateaudejeu {
 
-    CelluleDeGrille[][] grille = new CelluleDeGrille[6][7];
+    int Ligne = 6;
+    int Colonne = 7;
+    CelluleDeGrille[][] grille = new CelluleDeGrille[Ligne][Colonne];
 
     /**
      * création des 42 cellules vides de type CelluleDeGrille
@@ -33,7 +35,7 @@ public class Plateaudejeu {
      */
     public int ajouterJetonDansColonne(Jeton UnJeton, int colonne) {
         for (int k = 5; k >= 0; k--) {
-            if ("Rouge".equals(grille[k][colonne].lireCouleurDuJeton()) || "Jaune".equals(grille[k][colonne])) {
+            if (grille[k][colonne].equals("Jaune") || "Rouge".equals(grille[k][colonne].lireCouleurDuJeton())) {
                 grille[k + 1][colonne].affecterJeton(UnJeton);
                 return k + 1;
             }
@@ -100,7 +102,7 @@ public class Plateaudejeu {
         int compteur = 0;
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
-                if (grille[i][i].lireCouleurDuJeton() == couleur) {
+                if (grille[i][i].lireCouleurDuJeton().equals(couleur)) {
                     compteur += 1;
                     if (compteur == 4) {
                         return true;
@@ -125,7 +127,7 @@ public class Plateaudejeu {
         int compteur = 0;
         for (int j = 0; j < 7; j++) {
             for (int i = 0; i < 6; i++) {
-                if (grille[i][j].lireCouleurDuJeton() == couleur) {
+                if (grille[i][j].lireCouleurDuJeton().equals(couleur)) {
                     compteur += 1;
                     if (compteur == 4) {
                         return true;
@@ -149,7 +151,7 @@ public class Plateaudejeu {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 7; k++) {
-                    if (grille[i + k][j + k].lireCouleurDuJeton() == couleur) {
+                    if (grille[i + k][j + k].lireCouleurDuJeton().equals(couleur)) {
                         compteur += 1;
                     } else {
                         compteur = 0;
@@ -177,7 +179,7 @@ public class Plateaudejeu {
         for (int i = 3; i < 6; i++) {
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 7; k++) {
-                    if (grille[i - k][j + k].lireCouleurDuJeton() == couleur) {
+                    if (grille[i - k][j + k].lireCouleurDuJeton().equals(couleur)) {
                         compteur += 1;
                     } else {
                         compteur = 0;
@@ -308,6 +310,17 @@ public class Plateaudejeu {
      */
     public Jeton recupererJeton(int ligne, int colonne) {
         return grille[ligne][colonne].recupererJeton();
+    }
+    
+        public boolean contain(Joueur joueur){
+        for(int k = 0; k < Ligne; k++){
+            for (int i = 0; i < Colonne; i++){
+                if(grille[k][i].lireCouleurDuJeton().equals(joueur.couleur)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
