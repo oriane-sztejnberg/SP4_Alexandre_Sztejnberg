@@ -17,7 +17,7 @@ public class Plateaudejeu {
     /**
      * création des 42 cellules vides de type CelluleDeGrille
      */
-    public void PlateauDeJeu() {
+    public Plateaudejeu() {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 grille[i][j] = new CelluleDeGrille();
@@ -33,7 +33,7 @@ public class Plateaudejeu {
      * @param colonne
      * @return
      */
-    public int ajouterJetonDansColonne(Jeton UnJeton, int colonne) {
+    /*public int ajouterJetonDansColonne(Jeton UnJeton, int colonne) {
         for (int k = 5; k >= 0; k--) {
             if (grille[k][colonne].equals("Jaune") || "Rouge".equals(grille[k][colonne].lireCouleurDuJeton())) {
                 grille[k + 1][colonne].affecterJeton(UnJeton);
@@ -41,6 +41,24 @@ public class Plateaudejeu {
             }
         }
         return 0;
+    }*/
+    public int ajouterJetonDansColonne(Jeton Unjeton, int colonne) {
+        int ligne = -1;
+        if (!colonneRemplie(colonne)) {
+            if (grille[Ligne - 1][colonne].jetonCourant == null) {
+                grille[Ligne - 1][colonne].affecterJeton(Unjeton);
+                return Ligne - 1;
+            }
+
+            for (int k = 0; k < Ligne; k++) {
+                if (grille[k][colonne].jetonCourant != null) {
+                    grille[k - 1][colonne].affecterJeton(Unjeton);
+                    ligne = k - 1;
+                    break;
+                }
+            }
+        }
+        return ligne;
     }
 
     /**
@@ -65,16 +83,18 @@ public class Plateaudejeu {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 if (j == 6) {
-                    System.out.print(grille[i][j] + "/n");
+                    System.out.print(grille[i][j].lireCouleurDuJeton() + "\n");
                 } else {
-                    System.out.print(grille[i][j] + "");
+                    System.out.print(grille[i][j].lireCouleurDuJeton() + "");
                 }
             }
         }
     }
 
     /**
-     *renvoie true si la cellule de coordonnées [x][y] est occupée par un jeton, et false sinon
+     * renvoie true si la cellule de coordonnées [x][y] est occupée par un
+     * jeton, et false sinon
+     *
      * @param ligne
      * @param colonne
      * @return
@@ -84,7 +104,8 @@ public class Plateaudejeu {
     }
 
     /**
-     *renvoie la couleur du jeton de la cellule ciblée par les coodonnées 
+     * renvoie la couleur du jeton de la cellule ciblée par les coodonnées
+     *
      * @param ligne
      * @param colonne
      * @return
@@ -94,7 +115,9 @@ public class Plateaudejeu {
     }
 
     /**
-     *envoie true si la grille est gagnante pour la couleur passée en paramètre sur une ligne
+     * envoie true si la grille est gagnante pour la couleur passée en paramètre
+     * sur une ligne
+     *
      * @param couleur
      * @return
      */
@@ -119,90 +142,94 @@ public class Plateaudejeu {
     }
 
     /**
-     *envoie true si la grille est gagnante pour la couleur passée en paramètre sur une colonne
+     * envoie true si la grille est gagnante pour la couleur passée en paramètre
+     * sur une colonne
+     *
      * @param couleur
      * @return
      */
     public boolean colonneGagnantePourCouleur(String couleur) {
-        int compteur = 0;
-        for (int j = 0; j < 7; j++) {
-            for (int i = 0; i < 6; i++) {
+        int compteur;
+        for (int j = 0; j < 6; j++) {
+            for (int i = 0; i < 5; i++) {
+                compteur = 0;
                 if (grille[i][j].lireCouleurDuJeton().equals(couleur)) {
                     compteur += 1;
                     if (compteur == 4) {
                         return true;
                     }
-                } else {
-                    compteur = 0;
                 }
             }
-            compteur = 0;
+
         }
         return false;
     }
 
     /**
-     *envoie true si la grille est gagnante pour la couleur passée en paramètre sur les dégonales montantes
+     * envoie true si la grille est gagnante pour la couleur passée en paramètre
+     * sur les dégonales montantes
+     *
      * @param couleur
      * @return
      */
     public boolean diagonaleMontanteGagnantePourCouleur(String couleur) {
-        int compteur = 0;
+        int compteur;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 4; j++) {
-                for (int k = 0; k < 7; k++) {
+                compteur = 0;
+                for (int k = 0; k < 3; k++) {
                     if (grille[i + k][j + k].lireCouleurDuJeton().equals(couleur)) {
                         compteur += 1;
-                    } else {
-                        compteur = 0;
                     }
                     if (compteur == 4) {
                         return true;
                     }
-                    if (i == 5 && j == 6) {
-                        break;
-                    }
                 }
-                compteur = 0;
             }
         }
         return false;
+
     }
 
     /**
-     *envoie true si la grille est gagnante pour la couleur passée en paramètre sur les diagonales descendantes
+     * envoie true si la grille est gagnante pour la couleur passée en paramètre
+     * sur les diagonales descendantes
+     *
      * @param couleur
      * @return
      */
     public boolean diagonaleDescendanteGagnantePourCouleur(String couleur) {
-        int compteur = 0;
-        for (int i = 3; i < 6; i++) {
+        int compteur;
+        for (int i = 5; i > 3; i--) {
             for (int j = 0; j < 4; j++) {
-                for (int k = 0; k < 7; k++) {
+                compteur = 0;
+                for (int k = 0; k < 3; k++) {
                     if (grille[i - k][j + k].lireCouleurDuJeton().equals(couleur)) {
                         compteur += 1;
-                    } else {
-                        compteur = 0;
-                    }
-                    if (compteur == 4) {
-                        return true;
-                    }
-                    if (i == 0 && j == 6) {
-                        break;
-
                     }
                 }
-
-                compteur = 0;
-
+                if (compteur == 4) {
+                    return true;
+                }
             }
+
         }
         return false;
+    }
 
+    public boolean etregagnantpourCouleur(String couleur) {
+        if (diagonaleDescendanteGagnantePourCouleur(couleur) == true || diagonaleMontanteGagnantePourCouleur(couleur) == true || colonneGagnantePourCouleur(couleur) == true || LigneGagnantePourCouleur(couleur) == true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
-     *lorsqu’un jeton est capturé ou détruit, tasse la colonne indiquée en paramètre en décalant d’une ligne vers le bas les jetons situés au dessus de la cellule libérée.
+     * lorsqu’un jeton est capturé ou détruit, tasse la colonne indiquée en
+     * paramètre en décalant d’une ligne vers le bas les jetons situés au dessus
+     * de la cellule libérée.
+     *
      * @param colonne
      */
     public void tasserLigne(int colonne) {
@@ -217,7 +244,9 @@ public class Plateaudejeu {
     }
 
     /**
-     *renvoie true si la colonne dont l’indice est passé en paramètre est remplie (on ne peut y jouer de jeton), et false sinon
+     * renvoie true si la colonne dont l’indice est passé en paramètre est
+     * remplie (on ne peut y jouer de jeton), et false sinon
+     *
      * @param colonne
      * @return
      */
@@ -227,7 +256,8 @@ public class Plateaudejeu {
     }
 
     /**
-     *ajoute un trou noir à l’endroit indiqué
+     * ajoute un trou noir à l’endroit indiqué
+     *
      * @param ligne
      * @param colonne
      * @return
@@ -243,7 +273,8 @@ public class Plateaudejeu {
     }
 
     /**
-     *supprime un trou noir à l’endroit indiqué
+     * supprime un trou noir à l’endroit indiqué
+     *
      * @param ligne
      * @param colonne
      * @return
@@ -258,7 +289,8 @@ public class Plateaudejeu {
     }
 
     /**
-     *ajoute un désintégrateur à l’endroit indiqué
+     * ajoute un désintégrateur à l’endroit indiqué
+     *
      * @param ligne
      * @param colonne
      * @return
@@ -273,7 +305,8 @@ public class Plateaudejeu {
     }
 
     /**
-     *supprime un désintégrateur à l’endroit indiqué
+     * supprime un désintégrateur à l’endroit indiqué
+     *
      * @param ligne
      * @param colonne
      * @return
@@ -288,7 +321,8 @@ public class Plateaudejeu {
     }
 
     /**
-     *supprime le jeton de la cellule visée.
+     * supprime le jeton de la cellule visée.
+     *
      * @param ligne
      * @param colonne
      * @return
@@ -303,7 +337,9 @@ public class Plateaudejeu {
     }
 
     /**
-     *enlève le jeton de la cellule visée et renvoie une référence vers ce jeton
+     * enlève le jeton de la cellule visée et renvoie une référence vers ce
+     * jeton
+     *
      * @param ligne
      * @param colonne
      * @return
@@ -311,16 +347,27 @@ public class Plateaudejeu {
     public Jeton recupererJeton(int ligne, int colonne) {
         return grille[ligne][colonne].recupererJeton();
     }
-    
-        public boolean contain(Joueur joueur){
-        for(int k = 0; k < Ligne; k++){
-            for (int i = 0; i < Colonne; i++){
-                if(grille[k][i].lireCouleurDuJeton().equals(joueur.couleur)){
+
+    public boolean contain(Joueur joueur) {
+        for (int k = 0; k < Ligne; k++) {
+            for (int i = 0; i < Colonne; i++) {
+                if (grille[k][i].lireCouleurDuJeton().equals(joueur.couleur)) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    /**
+     * retourn un booleen pour savoir si la cellule est occupée
+     *
+     * @param ligne
+     * @param colonne
+     * @return
+     */
+    public boolean celluleoccupee(int ligne, int colonne) {
+        return (grille[ligne][colonne].recupererJeton() != null);
     }
 
 }

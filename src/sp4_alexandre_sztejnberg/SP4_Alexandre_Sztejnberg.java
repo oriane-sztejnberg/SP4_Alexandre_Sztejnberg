@@ -14,11 +14,16 @@ public class SP4_Alexandre_Sztejnberg {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Jeton J1=new Jeton("rouge");
+        /*Jeton J1=new Jeton("rouge");
         System.out.println(J1);
         Jeton J2=new Jeton("jaune");
         System.out.println(J2);
         Jeton J3=new Jeton("vert");
-        System.out.println(J3);
+        System.out.println(J3);*/
+        
+        Joueur j1 = new Joueur("Joueur 1");
+        Joueur j2 = new Joueur("Joueur 2");
+        Partie partie = new Partie(j1, j2);
+        partie.debuterpartie();
     }
 }

@@ -10,7 +10,7 @@ package sp4_alexandre_sztejnberg;
  */
 public class CelluleDeGrille {
 
-    private Jeton jetonCourant = null;
+    Jeton jetonCourant = null;
     private boolean avoirTrouNoir = false;
     private boolean avoirDesintegrateur = false;
 //initialisant les attributs avec des valeurs par défaut

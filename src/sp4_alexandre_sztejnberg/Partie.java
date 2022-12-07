@@ -21,11 +21,6 @@ public class Partie {
         {
             add("Rouge");
             add("Jaune");
-            add("Bleu");
-            add("Vert");
-            add("Noir");
-            add("Blanc");
-            add("Orange");
         }
     };
 
@@ -52,14 +47,14 @@ public class Partie {
         Grille = new Plateaudejeu();
         JoueurCourant = ListeJoueur[0];
         Jeton jeton;
-        String[] couleurs = attribuercouleursauxjoueurs();
+        String[] couleur = attribuercouleursauxjoueurs();
 
         for (int k = 0; k < nombrejetons; k++) {
             if (k % 2 == 0) {
-                jeton = new Jeton(couleurs[0]);
+                jeton = new Jeton(couleur[0]);
                 ListeJoueur[0].ajouterJeton(jeton);
             } else {
-                jeton = new Jeton(couleurs[1]);
+                jeton = new Jeton(couleur[1]);
                 ListeJoueur[1].ajouterJeton(jeton);
             }
         }
@@ -111,14 +106,14 @@ public class Partie {
     }
 
     public void debuterpartie() {
-
+        initialiserpartie(42);
         int nbrcoup = 0;
         int choice;
         Joueur winner;
         ArrayList<Joueur> winners = new ArrayList<Joueur>();
 
         while (true) {
-
+            //détermine quel joueur jour selon si le nombre de coup total est pair ou non (ils jouent donc chacun leur tour)
             if (nbrcoup % 2 == 0) {
                 JoueurCourant = ListeJoueur[0];
             } else {
@@ -129,42 +124,51 @@ public class Partie {
 
             choice = choice();
             switch (choice) { //Le joueur courant joue
-                case 0 -> jouerjeton();
-                case 1 -> recupererjeton();
-                case 2 -> jouerdesintegrateur();
+                case 0:
+                    jouerjeton();
+                    break;
+                case 1:
+                    recupererjeton();
+                    break;
+                case 2:
+                    jouerdesintegrateur();
+                    break;
             }
-            //Le joueur courant joue
+        
+    
 
-            Grille.afficherGrilleSurConsole();
-            nbrcoup++;
+        Grille.afficherGrilleSurConsole();
+        nbrcoup++;
 
-            winners = whoswin();
-            int size = winners.size();
-            if (size > 0) {
-                if (size == 2 | (size == 1 & winners.get(0) != JoueurCourant)) {
-                    if (ListeJoueur[0] == JoueurCourant) {
-                        winner = ListeJoueur[1];
-                    } else {
-                        winner = ListeJoueur[0];
-                    }
+        winners = whoswin();
+        int size = winners.size();
+        if (size > 0) {
+            if (size == 2 | (size == 1 & winners.get(0) != JoueurCourant)) {
+                if (ListeJoueur[0] == JoueurCourant) {
+                    winner = ListeJoueur[1];
+                } else {
+                    winner = ListeJoueur[0];
                 }
-                if (size == 1 & winners.get(0) == JoueurCourant) {
-                    winner = JoueurCourant;
-                }
-                break;
-
-            } else {
-                winner = null;
             }
-
-            if (Grille.grilleRemplie()) {
-                System.out.println("La grille est remplie...");
-                break;
+            if (size == 1 & winners.get(0) == JoueurCourant) {
+                winner = JoueurCourant;
             }
+            break;
 
+        } else {
+            winner = null;
         }
 
-        System.out.println("--Partie terminée--");
+        if (Grille.grilleRemplie()) {
+            System.out.println("La grille est remplie...");
+            break;
+        }
+
+    }
+
+    System.out.println (
+
+"--Partie terminée--");
 
     }
 
@@ -194,12 +198,16 @@ public class Partie {
         return rep;
     }
 
+    /**
+     *return qui gagne en regardant si les conditions pour gagner sont réspecté et associe la couleur du jeton au joueur
+     * @return
+     */
     public ArrayList<Joueur> whoswin() {
         ArrayList<Joueur> winners = new ArrayList<Joueur>();
         for (int k = 0; k < 2; k++) {
-            if((Grille.etregagnantpourjoueur(ListeJoueur[k], false))){
+            if((Grille.etregagnantpourCouleur(ListeJoueur[k].couleur)==true)){
                 winners.add(ListeJoueur[k]);
-                //System.out.println("Le joueur : " + ListeJoueur[k].Nom + " a gagné !");
+                System.out.println("Le joueur : " + ListeJoueur[k].Nom + " a gagné !");
             }
         }
         return winners;
@@ -209,7 +217,7 @@ public class Partie {
         int colonne = -1;
         int lignejeton;
 
-        if (JoueurCourant.nombrejetonsrestants > 0) { //dans le cas ou l'on veut et peut placer un pion
+        if (JoueurCourant.nombrejetonsrestants > 0) { //dans le cas ou l'on veut et peut placer un jeton on place le jeton
 
             while (colonne < 0 | colonne > 6) {
                 colonne = asknbr("Colonne du jeton : ");
@@ -226,6 +234,8 @@ public class Partie {
                     if (Grille.grille[lignejeton][colonne].presenceDesintegrateur()) {
                         Grille.grille[lignejeton][colonne].recupererDesintegrateur();
                     }
+                
+                   
                 }
             }
         }
