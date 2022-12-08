@@ -45,24 +45,34 @@ public class Plateaudejeu {
         }
         return 0;
     }*/
-    public int ajouterJetonDansColonne(Jeton Unjeton, int colonne) {
-        int ligne = -1;
-        if (!colonneRemplie(colonne)) {
-            if (grille[Ligne - 1][colonne].jetonCourant == null) {
-                grille[Ligne - 1][colonne].affecterJeton(Unjeton);
-                return Ligne - 1;
-            }
-
-            for (int k = 0; k < Ligne; k++) {
-                if (grille[k][colonne].jetonCourant != null) {
-                    grille[k - 1][colonne].affecterJeton(Unjeton);
-                    ligne = k - 1;
-                    break;
-                }
-            }
+    
+     public int ajouterJetonDansColonne(Jeton unJeton,int colonne) {
+        for (int i=0; i<6; i++) {                                            
+            if (grille[5-i][colonne].presenceJeton() == false) {          
+                grille[5-i][colonne].affecterJeton(unJeton) ;      
+                return (5-i) ;
+            } 
         }
-        return ligne;
+        return -1 ;                                                         //Return -1 si la colone est déja pleine
     }
+     //public int ajouterJetonDansColonne(Jeton Unjeton, int colonne) {
+       // int ligne = -1;
+        //if (!colonneRemplie(colonne)) {
+           // if (grille[Ligne - 1][colonne].jetonCourant == null) {
+               // grille[Ligne - 1][colonne].affecterJeton(Unjeton);
+               // return Ligne - 1;
+            //}
+
+           // for (int k = 0; k < Ligne; k++) {
+               // if (grille[k][colonne].jetonCourant != null) {
+                   // grille[k - 1][colonne].affecterJeton(Unjeton);
+                   // ligne = k - 1;
+                    //break;
+               // }
+            //}
+        //}
+       // return ligne;
+    //}
 
     /**
      * renvoie true si la grille est pleine, c’est-à-dire qu’on ne peut plus
@@ -70,15 +80,15 @@ public class Plateaudejeu {
      *
      * @return
      */
-    public boolean grilleRemplie() {
-        for (int k = 0; k <= 6; k++) {
-            if (grille[5][k].presenceJeton() == true) {
-                return true;
+ // Méthode permettant de savoir si la grille est pleine
+public boolean grilleRemplie() {
+        for (int k=0; k < 7; k++) {                                       
+            if (grille[0][k].presenceJeton() == false ){                    
+                return false ;
             }
         }
-        return false;
+        return true ;
     }
-
     /**
      * methode qui a pour but d'afficher la grille sur la console;
      */
@@ -340,7 +350,7 @@ public class Plateaudejeu {
     }
 
     /**
-     * methode qui nenlève le jeton de la cellule visée et renvoie une référence vers ce
+     * methode qui enlève le jeton de la cellule visée et renvoie une référence vers ce
      * jeton
      *
      * @param ligne
