@@ -8,6 +8,8 @@ package sp4_alexandre_sztejnberg;
  *
  * @author jason
  */
+// Realisation de la classe plateaud de jeu:
+
 public class Plateaudejeu {
 
     int Ligne = 6;
@@ -17,6 +19,7 @@ public class Plateaudejeu {
     /**
      * création des 42 cellules vides de type CelluleDeGrille
      */
+    //Constructeur d'objet du type plateau de jeu:
     public Plateaudejeu() {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
@@ -26,7 +29,7 @@ public class Plateaudejeu {
     }
 
     /**
-     * joute un jeton passé en paramètre dans la colonne dont l’indice est aussi
+     * méthode qui ajoute un jeton passé en paramètre dans la colonne dont l’indice est aussi
      * passé en paramètre, sur la cellule vide la plus basse.
      *
      * @param UnJeton
@@ -77,7 +80,7 @@ public class Plateaudejeu {
     }
 
     /**
-     * L’affichage doit faire apparaitre les couleurs, et les trous noirs
+     * methode qui a pour but d'afficher la grille sur la console;
      */
     public void afficherGrilleSurConsole() {
         for (int i = 0; i < 6; i++) {
@@ -92,8 +95,8 @@ public class Plateaudejeu {
     }
 
     /**
-     * renvoie true si la cellule de coordonnées [x][y] est occupée par un
-     * jeton, et false sinon
+     * methode qui renvoie true si la cellule de coordonnées [x][y] est occupée par un
+     * jeton, et false si elle est libre
      *
      * @param ligne
      * @param colonne
@@ -337,7 +340,7 @@ public class Plateaudejeu {
     }
 
     /**
-     * enlève le jeton de la cellule visée et renvoie une référence vers ce
+     * methode qui nenlève le jeton de la cellule visée et renvoie une référence vers ce
      * jeton
      *
      * @param ligne
@@ -360,7 +363,7 @@ public class Plateaudejeu {
     }
 
     /**
-     * retourn un booleen pour savoir si la cellule est occupée
+     * methode qui retourne un booleen pour savoir si la cellule est occupée
      *
      * @param ligne
      * @param colonne

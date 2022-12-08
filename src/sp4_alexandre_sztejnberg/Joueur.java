@@ -10,11 +10,12 @@ import java.util.ArrayList;
  *
  * @author jason
  */
+//Realisation de la classe "joueur" :
 public class Joueur {
 
     String Nom;
     String couleur;
-    ArrayList<Jeton> reserveJetons = new ArrayList();
+    private ArrayList<Jeton> reserveJetons = new ArrayList();
     int nombreDesintegrateurs;
     int nombrejetonsrestants;
 
@@ -24,17 +25,23 @@ public class Joueur {
      *
      * @param nom
      */
+    // Le constructeur d'objet de type "joueur"
     public Joueur(String nom) {
         Nom = nom;
         nombreDesintegrateurs = 0;
     }
 
+    // Cette méthode permet d'affecer une couleur à un joueur:
     public void affecterCouleur(String Couleur) {
         couleur = Couleur;
     }
+    // permet d'acceder à la couleur du jeton:
+    public String lireCouleur(){
+        return couleur;
+    }
 
     /**
-     * ajoute le jeton passé en paramètre à la réserve de jetons
+     * permet d' ajouter le jeton passé en paramètre à la réserve de jetons
      *
      * @param newJeton
      */
@@ -44,7 +51,7 @@ public class Joueur {
     }
 
     /**
-     * retire un jeton de la réserve de jetons et on renvoie une référence vers
+     * methode qui permet de retirer un jeton de la réserve de jetons et renvoie une référence vers
      * ce jeton
      *
      * @return
@@ -55,14 +62,14 @@ public class Joueur {
     }
 
     /**
-     * incrémente le nombre de désintégrateurs du joueur.
+     * methode permettant d'incrémenter le nombre de désintégrateurs du joueur.
      */
     public void obtenirDesintegrateur() {
         nombreDesintegrateurs += 1;
     }
 
     /**
-     * décrémente le nombre de désintégrateurs.
+     * methode qui décrémente le nombre de désintégrateurs.
      */
     public void utiliserDesintegrateur() {
         nombreDesintegrateurs -= 1;
