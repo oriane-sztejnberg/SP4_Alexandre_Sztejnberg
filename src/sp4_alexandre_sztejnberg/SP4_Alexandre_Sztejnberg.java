@@ -21,9 +21,9 @@ public class SP4_Alexandre_Sztejnberg {
         Jeton J3=new Jeton("vert");
         System.out.println(J3);*/
         
-        Joueur j1 = new Joueur("Joueur 1");
-        Joueur j2 = new Joueur("Joueur 2");
-        Partie partie = new Partie(j1, j2);
+        Joueur j1 = new Joueur("Joueur 1"); // creation d'un premier joueur
+        Joueur j2 = new Joueur("Joueur 2");// creation du second joueur
+        Partie partie = new Partie(j1, j2); // creation d'une nouvelle partie
         partie.debuterpartie();
     }
 }
